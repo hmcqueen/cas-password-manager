@@ -62,7 +62,7 @@
         <div class="row fl-controls-left">
             <label class="fl-label" for="username"><spring:message code="pm.form.netid" /></label>
             <c:choose>
-                <c:when test="${username != null}">
+                <c:when test="${!pwdChangeForced}">
                     <form:input path="username" type="text" disabled="true" autocomplete="false" size="25" value="${username}" accesskey="n" tabindex="1" cssClass="required" id="username" />
                     <form:errors path="username" cssClass="error"/>
                 </c:when>
@@ -93,7 +93,7 @@
             <form:input path="confirmNewPassword" type="password" autocomplete="off" size="25" accesskey="${confirmAccessKey}" tabindex="4" cssClass="required" id="confirmNewPassword" />
             <form:errors path="confirmNewPassword" cssClass="error"/>
         </div>
-        <c:if test="${empty username}">
+        <c:if test="${!pwdChangeForced}">
             <div>
                 <label class="fl-label" for="recaptcha"><spring:message code="pm.recaptcha.prompt" /></label>
                 <%
