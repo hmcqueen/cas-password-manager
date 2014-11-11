@@ -1,5 +1,6 @@
 package net.unicon.cas.passwordmanager.flow;
 
+import com.github.inspektr.audit.annotation.Audit;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.logging.Log;
@@ -16,6 +17,10 @@ public class RecaptchaValidationAction {
 	private String recaptchaPrivateKey;
 	private String recaptchaPublicKey;
 	
+	@Audit(
+					action = "RECAPTCHA_VALIDATE",
+					actionResolverName = "RECAPTCHA_VALIDATE_RESOLVER",
+					resourceResolverName = "RECAPTCHA_VALIDATE_RESOURCE_RESOLVER")
 	public boolean validateCaptcha(RequestContext context) {
 
 		ServletExternalContext externalContext = (ServletExternalContext) context.getExternalContext();

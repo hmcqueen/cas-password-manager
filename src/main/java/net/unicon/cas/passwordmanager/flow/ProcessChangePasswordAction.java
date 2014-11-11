@@ -1,5 +1,6 @@
 package net.unicon.cas.passwordmanager.flow;
 
+import com.github.inspektr.audit.annotation.Audit;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import net.unicon.cas.passwordmanager.InvalidPasswordException;
@@ -7,6 +8,7 @@ import net.unicon.cas.passwordmanager.service.PasswordManagerService;
 import org.springframework.binding.message.MessageBuilder;
 import org.springframework.binding.message.MessageContext;
 import org.springframework.ldap.NameNotFoundException;
+import org.springframework.webflow.execution.RequestContext;
 
 /**
  * <p>Changes the user's password.</p>
@@ -16,7 +18,11 @@ public class ProcessChangePasswordAction {
 	private final Log logger = LogFactory.getLog(this.getClass());
 	private PasswordManagerService passwordManagerService;
 
-	public boolean changePassword(String flowScopeUsername, String beanUsername, String oldPassword, String password,
+	@Audit(
+					action = "CHANGE_PASSWORD",
+					actionResolverName = "CHANGE_PASSWORD_RESOLVER",
+					resourceResolverName = "CHANGE_PASSWORD_RESOURCE_RESOLVER")
+	public boolean changePassword(RequestContext requestContext, String flowScopeUsername, String beanUsername, String oldPassword, String password,
 			MessageContext messageContext) throws Exception {
 		
 		// prefer a username found in the flow scope to one found in the bean
@@ -55,7 +61,11 @@ public class ProcessChangePasswordAction {
 		return true;
 	}
 	
-	public boolean setPassword(String username, String password,
+	@Audit(
+					action = "SET_PASSWORD",
+					actionResolverName = "SET_PASSWORD_RESOLVER",
+					resourceResolverName = "SET_PASSWORD_RESOURCE_RESOLVER")
+	public boolean setPassword(RequestContext requestContext, String username, String password,
 			MessageContext messageContext) throws Exception {
 		
 		try {
@@ -68,7 +78,11 @@ public class ProcessChangePasswordAction {
 		return true;
 	}
 	
-	public boolean changePassword(String username, String oldPassword, 
+	@Audit(
+					action = "CHANGE_PASSWORD",
+					actionResolverName = "CHANGE_PASSWORD_RESOLVER",
+					resourceResolverName = "CHANGE_PASSWORD_RESOURCE_RESOLVER")
+	public boolean changePassword(RequestContext requestContext, String username, String oldPassword, 
 			String newPassword) throws Exception {
 		
 		try {
