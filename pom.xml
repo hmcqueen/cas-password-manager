@@ -67,7 +67,7 @@
 	</dependencies>
 
 	<properties>
-		<cas.version>3.5.2</cas.version>
+		<cas.version>3.5.2.1</cas.version>
 	</properties>
 
 	<repositories>
